@@ -1,6 +1,6 @@
 export const github = {
   username: "WangShekun",
-  excludedRepositories: ["WangShekun", "WangShekun.github.io"],
+  excludedRepositories: ["WangShekun.github.io"],
   limit: 6,
 };
 
