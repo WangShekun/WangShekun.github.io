@@ -1,0 +1,80 @@
+---
+import {
+  languageColor,
+  presentRepository,
+  repositoryUrl,
+  type Repository,
+} from "../data/github";
+
+interface Props {
+  repository: Repository;
+}
+
+const repository = presentRepository(Astro.props.repository);
+---
+
+<li>
+  <a
+    class="repository-card"
+    href={repositoryUrl(repository)}
+    target="_blank"
+    rel="noopener"
+  >
+    <div class="repository-heading">
+      <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        aria-hidden="true"
+      >
+        <path d="M5 3h14v18H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 0v14h14M7 7h8" />
+      </svg>
+      <h3 data-repo-name>{repository.name}</h3>
+    </div>
+    <p data-repo-description hidden={!repository.description}>
+      {repository.description}
+    </p>
+    <div class="repository-meta">
+      <span data-repo-language hidden={!repository.language}>
+        <span
+          class="language-dot"
+          data-repo-language-dot
+          style={`background: ${languageColor(repository.language)}`}
+        >
+        </span>
+        <span data-repo-language-text>{repository.language}</span>
+      </span>
+      <span data-repo-fork hidden={!repository.fork}>
+        Fork
+      </span>
+      <span data-repo-archived hidden={!repository.archived}>
+        Archived
+      </span>
+      <span
+        class="repository-stars"
+        data-repo-stars
+        hidden={repository.stars === 0}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          aria-hidden="true"
+        >
+          <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9Z" />
+        </svg>
+        <span data-repo-star-count>{repository.stars}</span>
+        <span class="sr-only">stars</span>
+      </span>
+    </div>
+    <span class="repository-branch" data-repo-branch hidden={!repository.branch}>
+      {repository.branch && `Branch: ${repository.branch}`}
+    </span>
+  </a>
+</li>
