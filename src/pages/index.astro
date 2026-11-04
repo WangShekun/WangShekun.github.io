@@ -5,10 +5,15 @@ import "@fontsource/source-sans-3/600.css";
 import "@fontsource/newsreader/400.css";
 import "@fontsource/newsreader/400-italic.css";
 import "../styles/global.css";
-import { profile, education, research, publications } from "../data/site";
+import { profile, education, research, publications, conferencePublications } from "../data/site";
 import { repositoryFallback } from "../data/github";
 import RepositoryCard from "../components/RepositoryCard.astro";
 import Icon from "../components/Icon.astro";
+
+const publicationGroups = [
+  { id: "journal-articles", title: "Journal Articles", papers: publications },
+  { id: "conference-papers", title: "Conference Papers", papers: conferencePublications },
+];
 ---
 
 <!doctype html>
@@ -178,36 +183,62 @@ import Icon from "../components/Icon.astro";
             <Icon name="orcid" /> ORCID profile
           </a>
         </div>
-        <ol class="publication-list">
-          {publications.map((paper, index) => (
-            <li class="reveal">
-              <span class="publication-number">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <div class="publication-content">
-                <p class="publication-venue">{paper.venue}</p>
-                <h3>
-                  {paper.href ? (
-                    <a href={paper.href} target="_blank" rel="noopener">
-                      {paper.title}
-                    </a>
-                  ) : (
-                    paper.title
-                  )}
-                </h3>
-                <details class="publication-abstract">
-                  <summary>
-                    Abstract
-                    <Icon name="down" size={16} />
-                    <span class="sr-only"> for {paper.title}</span>
-                  </summary>
-                  <p>{paper.abstract}</p>
-                </details>
-              </div>
-              <span class="publication-year">{paper.year}</span>
-            </li>
+        <div class="publication-tabs" role="tablist" aria-label="Publication type" hidden>
+          {publicationGroups.map((group, index) => (
+            <button
+              type="button"
+              role="tab"
+              id={`${group.id}-tab`}
+              aria-controls={group.id}
+              aria-selected={index === 0 ? "true" : "false"}
+              tabindex={index === 0 ? 0 : -1}
+            >
+              {group.title}
+            </button>
           ))}
-        </ol>
+        </div>
+        <div class="publication-panels">
+          <div class="publication-track">
+          {publicationGroups.map((group) => (
+          <div class="publication-group" id={group.id}>
+            <h3 class="publication-group-title" id={`${group.id}-title`}>{group.title}</h3>
+            <ol class="publication-list" aria-labelledby={`${group.id}-title`}>
+              {group.papers.map((paper, index) => (
+                <li class="reveal">
+                  <span class="publication-number">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div class="publication-content">
+                    <p class="publication-venue">{paper.venue}</p>
+                    <h4>
+                      {paper.href ? (
+                        <a href={paper.href} target="_blank" rel="noopener">
+                          {paper.title}
+                        </a>
+                      ) : (
+                        paper.title
+                      )}
+                    </h4>
+                    {paper.context && <p class="publication-context">{paper.context}</p>}
+                    {paper.abstract && (
+                      <details class="publication-abstract">
+                        <summary>
+                          Abstract
+                          <Icon name="down" size={16} />
+                          <span class="sr-only"> for {paper.title}</span>
+                        </summary>
+                        <p>{paper.abstract}</p>
+                      </details>
+                    )}
+                  </div>
+                  <span class="publication-year">{paper.year}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+          ))}
+          </div>
+        </div>
       </section>
 
       <section
@@ -280,6 +311,7 @@ import Icon from "../components/Icon.astro";
     </main>
     <script>
       import "../scripts/github";
+      import "../scripts/publications";
     </script>
     <script>
       let closedAbstractsForPrint: HTMLDetailsElement[] | undefined;

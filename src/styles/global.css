@@ -73,7 +73,8 @@ button:focus-visible,
 p,
 h1,
 h2,
-h3 {
+h3,
+h4 {
   margin: 0;
 }
 p {
@@ -472,6 +473,73 @@ h2 em {
 [hidden] {
   display: none !important;
 }
+.publication-tabs {
+  display: flex;
+  gap: clamp(16px, 3vw, 36px);
+  margin: 0 0 28px 62px;
+  border-bottom: 1px solid var(--line);
+}
+.publication-tabs [role="tab"] {
+  position: relative;
+  min-height: 48px;
+  padding: 0 0 14px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: var(--text-body);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.publication-tabs [role="tab"]:after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+}
+.publication-tabs [aria-selected="true"] {
+  color: var(--accent);
+}
+.publication-tabs [aria-selected="true"]:after {
+  transform: scaleX(1);
+}
+.publications.has-tabs .publication-panels {
+  overflow: hidden;
+  overflow-anchor: none;
+  transition: height 0.45s var(--ease);
+}
+.publications.has-tabs .publication-track {
+  display: flex;
+  align-items: flex-start;
+  transition: transform 0.45s var(--ease);
+}
+.publications.has-tabs .publication-group {
+  flex: 0 0 100%;
+  min-width: 0;
+  margin: 0;
+}
+.publications.has-tabs .publication-group:focus-visible {
+  outline-offset: -2px;
+}
+.publications.has-tabs .publication-list li {
+  opacity: 1;
+  transform: none;
+  transition: background-color 0.3s ease;
+}
+.publication-group + .publication-group {
+  margin-top: 56px;
+}
+.publication-group-title {
+  margin: 0 0 20px 62px;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent);
+}
 .publication-list {
   list-style: none;
   margin: 0;
@@ -531,20 +599,25 @@ h2 em {
   min-width: 0;
   max-width: 890px;
 }
-.publication-list h3 {
+.publication-list h4 {
   font-size: 24px;
   line-height: 1.4;
   font-weight: 500;
   overflow-wrap: anywhere;
   text-wrap: pretty;
 }
-.publication-list h3 a {
+.publication-list h4 a {
   transition: color 0.2s;
 }
-.publication-list h3 a:focus-visible {
+.publication-list h4 a:focus-visible {
   color: var(--accent);
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+.publication-context {
+  margin-top: 12px;
+  font-size: var(--text-caption);
+  color: var(--dim);
 }
 .publication-abstract {
   margin-top: 12px;
@@ -927,7 +1000,10 @@ h2 em {
   .publication-list li:hover .publication-year {
     color: var(--accent);
   }
-  .publication-list h3 a:hover {
+  .publication-tabs [role="tab"]:hover {
+    color: var(--ink);
+  }
+  .publication-list h4 a:hover {
     color: var(--accent);
     text-decoration: underline;
     text-underline-offset: 4px;
@@ -1116,7 +1192,16 @@ h2 em {
     gap: 12px;
     padding-block: 28px;
   }
-  .publication-list h3 {
+  .publication-group + .publication-group {
+    margin-top: 40px;
+  }
+  .publication-group-title {
+    margin-left: 0;
+  }
+  .publication-tabs {
+    margin-left: 0;
+  }
+  .publication-list h4 {
     font-size: 22px;
   }
   .publication-venue {
@@ -1290,6 +1375,7 @@ h2 em {
   .site-header,
   .hero,
   .skip-link,
+  .publication-tabs,
   .section-heading > .text-link,
   .education-list:before,
   .education-list li:before,
@@ -1356,7 +1442,7 @@ h2 em {
   .about-copy p.personal-note,
   .education-list h3,
   .research-item h3,
-  .publication-list h3,
+  .publication-list h4,
   .repository-heading h3,
   .email {
     font-size: 12pt;
@@ -1403,6 +1489,31 @@ h2 em {
   }
   .publication-number {
     display: block;
+  }
+  .publication-group-title {
+    margin: 3mm 0 2mm 32px;
+    font-size: 12pt;
+    break-after: avoid;
+  }
+  .publications.has-tabs .publication-panels {
+    height: auto !important;
+    overflow: visible;
+  }
+  .publications.has-tabs .publication-track {
+    display: block;
+    transform: none !important;
+  }
+  .publications.has-tabs .publication-group-title {
+    display: block;
+  }
+  .publications.has-tabs .publication-group + .publication-group {
+    margin-top: 4mm;
+  }
+  .publication-group + .publication-group {
+    margin-top: 4mm;
+  }
+  .publication-context {
+    font-size: 9pt;
   }
   .repository-grid li + li {
     margin-top: 4mm;
