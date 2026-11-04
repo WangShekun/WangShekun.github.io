@@ -43,8 +43,18 @@ export const research = [
   },
 ];
 
+type Publication = {
+  title: string;
+  venue: string;
+  year: string;
+  note?: string;
+  href?: string;
+  abstract?: string;
+  context?: string;
+};
+
 // Published articles only; metadata follows the supplied CV.
-export const publications = [
+export const publications: Publication[] = [
   {
     title:
       "Sparse Arbitrary Polynomial Chaos for High-Dimensional Problems Based on Moment-Constrained Projection Dimensionality Reduction",
@@ -84,5 +94,31 @@ export const publications = [
     href: "https://doi.org/10.1109/TAES.2026.3689077",
     abstract:
       "Urban air mobility and emergency response applications demand uncrewed aerial vehicles capable of efficient high-speed cruise, low-speed loiter, and vertical takeoff/landing. The Canard Rotor/Wing (CRW) configuration uniquely integrates these trimodal capabilities. To address thrust deficit during cruise acceleration and parasitic weight penalties in CRW uncrewed aerial vehicle tail rotors, this article proposes an integrated tail-propulsive propeller (ITPP). The ITPP must simultaneously satisfy conflicting aerodynamic requirements: static thrust during hover and high-efficiency thrust generation at high advance ratio. Further, an inverse design methodology is proposed for multipoint operating conditions to satisfy this requirement. The design architecture is an inverse method constructed upon standard strip analysis, implemented in a MATLAB environment with airfoil data computed using the XFOIL solver. The design is guided by the principle of minimum energy loss, and a variable-pitch mechanism is incorporated to mitigate incidence angle conflicts. A critical feature is a radial-position-dependent optimization strategy, which prioritizes drag reduction at the root and tip, and lift-drag tradeoff at mid-span. Aerodynamic data is normalized prior to synthesis to ensure unbiased selection. The final design concurrently achieves high static thrust for low-speed flight and high efficiency at high-speed cruise. Design case studies validate that the dual-point inversely designed propeller simultaneously meets thrust requirements at both design conditions while demonstrating superior overall efficiency relative to single-point reference propellers. The methodology’s efficacy in designing propellers for wide-spanning operating conditions is substantiated.",
+  },
+];
+
+// Conference titles and abstracts follow the official ICAS archive records.
+export const conferencePublications: Publication[] = [
+  {
+    title:
+      "Sparse Polynomial Chaos-Based Robust Optimization Design of Aerodynamic and Sonic Boom",
+    venue:
+      "35th Congress of the International Council of the Aeronautical Sciences (ICAS)",
+    year: "2026",
+    context: "Sydney, Australia · Oral presentation",
+    href: "https://www.icas.org/icas_archive/icas2026/data/preview/icas2026_0235.htm",
+    abstract:
+      "This work presents a sparse polynomial chaos based framework for robust aerodynamic and sonic boom optimization design under multi-source uncertainty. The method enables uncertainty quantification and robust optimization design with limited samples, reducing computational cost while enhancing the robustness of aerodynamic and sonic boom designs under uncertain flight and atmospheric conditions.",
+  },
+  {
+    title:
+      "Sparse Polynomial Chaos-Based Sonic Boom Uncertainty Quantification and Aerodynamic/Sonic Boom Robust Design Optimization under Multi-Parameter Uncertainties",
+    venue:
+      "34th Congress of the International Council of the Aeronautical Sciences (ICAS)",
+    year: "2024",
+    context: "Florence, Italy · Oral presentation",
+    href: "https://www.icas.org/icas_archive/icas2024/data/preview/icas2024_0373.htm",
+    abstract:
+      "This paper uses the AFBS method for aircraft aerodynamic/sonic boom uncertainty quantification. Establishing a multidisciplinary robust optimal design framework that conducts aerodynamic/sonic boom uncertainty quantification can meet the design requirements of the environment-friendly supersonic civil aircraft.",
   },
 ];
