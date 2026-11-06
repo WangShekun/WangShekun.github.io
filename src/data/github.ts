@@ -90,6 +90,7 @@ export const repositoryFallback: Repository[] = [
 
 const LANGUAGE_COLORS: Record<string, string> = {
   Python: "#3572a5",
+  Fortran: "#4d41b1",
   MATLAB: "#e16737",
   JavaScript: "#f1e05a",
   TypeScript: "#3178c6",
