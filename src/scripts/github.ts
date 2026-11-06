@@ -6,6 +6,41 @@ import {
   selectRepositories,
 } from "../data/github";
 
+async function refreshMissingLanguages(list: HTMLUListElement) {
+  const cards = Array.from(list.querySelectorAll<HTMLAnchorElement>(".repository-card"));
+  await Promise.all(cards.map(async (card) => {
+    const language = card.querySelector<HTMLElement>("[data-repo-language]")!;
+    if (!language.hidden) return;
+    const name = card.querySelector("[data-repo-name]")!.textContent?.trim();
+    if (!name) return;
+
+    try {
+      const response = await fetch(
+        `https://api.github.com/repos/${github.username}/${encodeURIComponent(name)}/languages`,
+        {
+          headers: { Accept: "application/vnd.github+json" },
+          signal: AbortSignal.timeout(6000),
+        },
+      );
+      if (!response.ok) return;
+      const data: unknown = await response.json();
+      if (!data || typeof data !== "object" || Array.isArray(data)) return;
+      const languages = Object.entries(data)
+        .filter((entry): entry is [string, number] =>
+          typeof entry[1] === "number" && Number.isFinite(entry[1]) && entry[1] > 0,
+        )
+        .sort((a, b) => b[1] - a[1]);
+      const primary = languages[0]?.[0];
+      if (!primary) return;
+      card.querySelector<HTMLElement>("[data-repo-language-text]")!.textContent = primary;
+      card.querySelector<HTMLElement>("[data-repo-language-dot]")!.style.background = languageColor(primary);
+      language.hidden = false;
+    } catch {
+      return;
+    }
+  }));
+}
+
 async function refreshRepositories() {
   const list = document.querySelector<HTMLUListElement>("[data-repositories]");
   const template = document.querySelector<HTMLTemplateElement>(
@@ -24,7 +59,10 @@ async function refreshRepositories() {
     if (!response.ok) throw new Error(`GitHub returned ${response.status}`);
     const repositories = selectRepositories(await response.json());
     // Do not replace a link while a visitor is interacting with it.
-    if (list.contains(document.activeElement)) return;
+    if (list.contains(document.activeElement)) {
+      await refreshMissingLanguages(list);
+      return;
+    }
 
     const fragment = document.createDocumentFragment();
     for (const repository of repositories) {
@@ -65,6 +103,7 @@ async function refreshRepositories() {
       error,
     );
   }
+  await refreshMissingLanguages(list);
 }
 
 void refreshRepositories();
