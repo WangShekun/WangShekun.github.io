@@ -9,6 +9,8 @@ import { profile, education, research, publications, conferencePublications } fr
 import { repositoryFallback } from "../data/github";
 import RepositoryCard from "../components/RepositoryCard.astro";
 import Icon from "../components/Icon.astro";
+import ThemeHead from "../components/ThemeHead.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
 
 const publicationGroups = [
   { id: "journal-articles", title: "Journal Articles", papers: publications },
@@ -25,7 +27,7 @@ const publicationGroups = [
       name="description"
       content="Shekun Wang — uncertainty quantification, data-efficient modeling, scientific computing, and photography."
     />
-    <meta name="theme-color" content="#10191f" />
+    <ThemeHead />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Shekun Wang</title>
   </head>
@@ -38,6 +40,7 @@ const publicationGroups = [
         sw<span>.</span>
       </a>
       <span class="header-caption">Shekun Wang</span>
+      <ThemeToggle />
       <button
         type="button"
         class="menu-toggle"
@@ -59,6 +62,7 @@ const publicationGroups = [
     <main id="main">
       <section class="hero" id="home" aria-labelledby="hero-title">
         <div class="hero-stage wrap">
+          <canvas class="pointer-field" aria-hidden="true"></canvas>
           <div class="hero-field" aria-hidden="true">
             <div class="halo-aura"></div>
             <div class="halo-orbit halo-orbit-outer"></div>
@@ -312,6 +316,7 @@ const publicationGroups = [
     <script>
       import "../scripts/github";
       import "../scripts/publications";
+      import "../scripts/pointer-field";
     </script>
     <script>
       let closedAbstractsForPrint: HTMLDetailsElement[] | undefined;
@@ -424,7 +429,7 @@ const publicationGroups = [
           closeMenu(true);
       });
       window
-        .matchMedia("(max-width: 1000px)")
+        .matchMedia("(max-width: 1100px)")
         .addEventListener("change", () => closeMenu());
 
       if ("IntersectionObserver" in window) {

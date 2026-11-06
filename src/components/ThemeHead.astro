@@ -1,0 +1,10 @@
+<meta name="theme-color" content="#f2f1ec" />
+<script is:inline>
+  (() => {
+    let saved;
+    try { saved = localStorage.getItem("theme"); } catch {}
+    const dark = saved === "dark" || (saved !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+    document.querySelector('meta[name="theme-color"]').setAttribute("content", dark ? "#18232b" : "#f2f1ec");
+  })();
+</script>
