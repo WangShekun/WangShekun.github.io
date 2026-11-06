@@ -60,8 +60,8 @@ export const publications: Publication[] = [
       "Sparse Arbitrary Polynomial Chaos for High-Dimensional Problems Based on Moment-Constrained Projection Dimensionality Reduction",
     venue: "Reliability Engineering & System Safety",
     year: "2026",
-    note: "Published · bibliographic details to follow",
-    href: undefined,
+    note: "Published",
+    href: "https://doi.org/10.1016/j.ress.2026.113773",
     abstract:
       "Polynomial chaos surrogate modeling for high-dimensional uncertainty quantification under limited training data remains challenging when inputs are high-dimensional, nonstandard, or only partially characterized, which often lead to low efficiency, poor accuracy, and weak robustness. As a data-driven extension of polynomial chaos, arbitrary polynomial chaos (aPC) constructs orthogonal polynomial bases directly from sample moments. Consequently, its performance depends strongly on the statistical quality and numerical conditioning of the reduced variables. To address this issue, this paper proposes a Moment-Constrained Projection (MCP) method for dimensionality reduction and couples it with aPC to develop an MCP-aPC surrogate modeling framework. Under an orthogonality constraint, MCP regularizes the second order statistical structure and preserves low order moment information in the reduced space, thereby improving the numerical stability of reduced space aPC construction. A supervised term can also be introduced when response information is available. In principle, the reduced dimension and MCP hyperparameters can be treated as joint candidates under leave-one-out (LOO) model selection. Results on analytical benchmark functions up to 300 dimensions, stochastic heat conduction PDE field prediction, and transonic aerodynamic modeling of the M6 wing show that MCP-aPC consistently achieves the lowest prediction errors, especially for small sample sizes, and the strongest robustness over repeated experiments. It also requires substantially smaller reduced dimensions than competing dimensionality reduction-based aPC methods and generally outperforms standard PCE and aPC.",
   },
