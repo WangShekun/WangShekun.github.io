@@ -59,7 +59,7 @@ export const publications: Publication[] = [
     title:
       "Sparse Arbitrary Polynomial Chaos for High-Dimensional Problems Based on Moment-Constrained Projection Dimensionality Reduction",
     venue: "Reliability Engineering & System Safety",
-    year: "2026",
+    year: "2027",
     note: "Published",
     href: "https://doi.org/10.1016/j.ress.2026.113773",
     abstract:
